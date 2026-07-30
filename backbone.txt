@@ -1,0 +1,28 @@
+AI_Client/
+│
+├── main.py                 # start programu
+│
+├── config.py               # konfiguracja
+├── api.py                  # komunikacja z OpenRouter
+├── history.py              # pamięć rozmowy
+├── models.py               # definicje modeli
+├── prompts.py              # gotowe instrukcje/promptowanie
+├── utils.py                # funkcje pomocnicze
+├── logger.py               # logowanie zdarzeń
+├── database.py             # baza danych
+├── files.py                # obsługa plików
+├── security.py             # bezpieczeństwo kluczy
+│
+├── .env                    # tajne dane
+├── .gitignore              # pliki ignorowane przez git
+├── requirements.txt        # biblioteki
+│
+├── data/
+│   └── historia.json       # dane rozmów
+│
+├── logs/
+│   └── app.log             # logi programu
+│
+└── tests/
+    ├── test_api.py
+    └── test_history.py
