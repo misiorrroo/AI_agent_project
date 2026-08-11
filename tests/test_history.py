@@ -44,3 +44,6 @@ class HistoryTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+#.\.venv\Scripts\python.exe -m unittest discover -s tests -v           -  tests executed
