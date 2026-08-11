@@ -1,41 +1,14 @@
-import requests
-from datetime import datetime
-from config import (
-    API_KEY,
-    API_URL,
-    MODEL,
-    TEMPERATURE,
-    TOP_P,
-    MAX_TOKENS,
-    FREQUENCY_PENALTY,
-    PRESENCE_PENALTY,
-    HISTORY_FILE,
-)
-from prompts import SYSTEM_PROMPT
-
-
-# ============================================================
-# PLIK HISTORII ROZMOWY
-# ============================================================
-
-
-# Nazwa pliku, gdzie zapisujemy historię.
-#
-# Dzięki temu po zamknięciu programu
-# rozmowa nie znika.
-
-
-
-# ============================================================
-# WCZYTYWANIE HISTORII
-# ZAPIS HISTORII
-# ============================================================
-
-
-
-
-
+from api import ask_ai  # FUNKCJA WYSYŁAJĄCA ZAPYTANIE DO MODELU
+from config import MODEL
 from history import load_history, save_history
+from prompts import SYSTEM_PROMPT
+from logger import get_logger
+
+
+logger = get_logger(__name__)
+logger.info("Uruchomiono program")
+
+
 
 messages = load_history()
 if not messages or messages[0]["role"] != "system":
@@ -43,14 +16,6 @@ if not messages or messages[0]["role"] != "system":
         "role": "system",
         "content": SYSTEM_PROMPT,
     })
-
-
-# ============================================================
-# FUNKCJA WYSYŁAJĄCA ZAPYTANIE DO MODELU
-# ============================================================
-
-
-from api import ask_ai
 
 
 # ============================================================
@@ -132,24 +97,26 @@ while True:
     # normalne pytanie
 
     messages.append({
-    "role": "user",
-    "content": user_input,
-})
+        "role": "user",
+        "content": user_input,
+    })
 
     answer = ask_ai(messages)
 
     if answer:
-    messages.append({
-        "role": "assistant",
-        "content": answer,
-    })
+        messages.append({
+            "role": "assistant",
+            "content": answer,
+        })
 
-    save_history(messages)
+        save_history(messages)
 
-    print("\nAI:")
-    print("-" * 60)
-    print(answer)
-    print("-" * 60)
+        print("\nAI:")
+        print("-" * 60)
+        print(answer)
+        print("-" * 60)
 
+
+logger.info("Zakończono program")
 
 print("Koniec programu.")

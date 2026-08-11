@@ -10,7 +10,9 @@ from config import (
     FREQUENCY_PENALTY,
     PRESENCE_PENALTY,
 )
+from logger import get_logger
 
+logger = get_logger(__name__)
 
 def ask_ai(messages):
     """Wysyła historię rozmowy do modelu i zwraca tekst odpowiedzi."""
@@ -48,8 +50,10 @@ def ask_ai(messages):
 
     except requests.RequestException as error:
         print(f"Błąd połączenia z API: {error}")
+        logger.error("Błąd połączenia z API: %s", error)
         return None
 
     except (KeyError, IndexError, ValueError) as error:
         print(f"Nieprawidłowa odpowiedź API: {error}")
+        logger.error("Nieprawidłowa odpowiedź API: %s", error)
         return None

@@ -219,3 +219,6 @@ __marimo__/
 
 # Local conversation history may contain private data
 historia.json
+
+# Lokalne logi aplikacji
+logs/
