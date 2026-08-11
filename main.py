@@ -11,7 +11,7 @@ from config import (
     PRESENCE_PENALTY,
     HISTORY_FILE,
 )
-
+from prompts import SYSTEM_PROMPT
 
 
 # ============================================================
@@ -38,7 +38,11 @@ from config import (
 from history import load_history, save_history
 
 messages = load_history()
-
+if not messages or messages[0]["role"] != "system":
+    messages.insert(0, {
+        "role": "system",
+        "content": SYSTEM_PROMPT,
+    })
 
 
 # ============================================================
