@@ -3,7 +3,6 @@ import requests
 from config import (
     API_KEY,
     API_URL,
-    MODEL,
     TEMPERATURE,
     TOP_P,
     MAX_TOKENS,
@@ -14,7 +13,7 @@ from logger import get_logger
 
 logger = get_logger(__name__)
 
-def ask_ai(messages):
+def ask_ai(messages, model):
     """Wysyła historię rozmowy do modelu i zwraca tekst odpowiedzi."""
 
     if not API_KEY:
@@ -27,7 +26,7 @@ def ask_ai(messages):
     }
 
     data = {
-        "model": MODEL,
+        "model": model,
         "messages": messages,
         "temperature": TEMPERATURE,
         "top_p": TOP_P,
