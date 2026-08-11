@@ -1,57 +1,83 @@
-# AI Client — OpenRouter CLI
+# AI Client
 
-Prosta aplikacja konsolowa w Pythonie do rozmowy z modelami AI przez API OpenRouter.
+Pythonowy klient CLI do komunikacji z modelami językowymi przez OpenRouter API.
 
-Użytkownik wybiera model przy starcie aplikacji, prowadzi rozmowę w terminalu, może zmienić model w trakcie działania oraz zapisuje historię rozmowy lokalnie.
+Projekt został zaprojektowany jako praktyczna aplikacja do nauki pracy z API, obsługi konfiguracji, zarządzania historią rozmów, logowania oraz organizacji większego projektu Pythonowego.
 
-## Funkcje
+---
 
-- komunikacja z API OpenRouter,
-- wybór jednego z dostępnych modeli AI,
-- zmiana modelu podczas rozmowy przez `/switch`,
-- pamięć rozmowy zapisywana lokalnie w `data/historia.json`,
-- prompt systemowy definiowany w `prompts.py`,
-- logi aplikacji w `logs/app.log`,
-- klucz API przechowywany w `.env`,
-- testy modułu historii.
+## 📌 Spis treści
 
-## Struktura projektu
+- [Opis projektu](#-opis-projektu)
+- [Funkcje](#-funkcje)
+- [Technologie](#-technologie)
+- [Struktura projektu](#-struktura-projektu)
+- [Wymagania](#-wymagania)
+- [Instalacja](#-instalacja)
+- [Konfiguracja](#-konfiguracja)
+- [Uruchomienie](#-uruchomienie)
+- [Przykładowe użycie](#-przykładowe-użycie)
+- [Historia rozmów](#-historia-rozmów)
+- [Modele](#-modele)
+- [Logowanie](#-logowanie)
+- [Architektura](#-architektura)
+- [Rozwój projektu](#-rozwój-projektu)
+- [Testy](#-testy)
+- [Bezpieczeństwo](#-bezpieczeństwo)
+- [Licencja](#-licencja)
+
+---
+
+# 🤖 Opis projektu
+
+**AI Client** to aplikacja napisana w Pythonie umożliwiająca komunikację z modelami LLM za pośrednictwem OpenRouter API.
+
+Projekt działa z poziomu terminala i pozwala między innymi na:
+
+- wysyłanie promptów do modeli AI,
+- wybór modelu,
+- przechowywanie historii rozmów,
+- odczytywanie poprzednich rozmów,
+- zarządzanie konfiguracją,
+- obsługę odpowiedzi API,
+- logowanie działania aplikacji,
+- obsługę błędów,
+- testowanie poszczególnych modułów.
+
+Projekt ma również charakter edukacyjny — jego celem jest praktyczne poznanie budowy aplikacji Pythonowej korzystającej z zewnętrznego REST API.
+
+---
+
+# ✨ Funkcje
+
+## 💬 Komunikacja z LLM
+
+Aplikacja umożliwia wysyłanie wiadomości do modeli językowych poprzez OpenRouter API.
+
+Obsługiwane są między innymi:
+
+- wiadomości użytkownika,
+- wiadomości systemowe,
+- odpowiedzi modelu,
+- parametry generowania,
+- wybór modelu,
+- historia konwersacji.
+
+---
+
+## 🧠 Historia rozmów
+
+Aplikacja przechowuje historię rozmów lokalnie.
+
+Historia może zawierać:
+
+- wiadomości użytkownika,
+- odpowiedzi modelu,
+- wybrany model,
+- informacje o rozmowie,
+- znaczniki czasu.
+
+Domyślne dane historii są przechowywane w:
 
 ```text
-main.py          # uruchomienie aplikacji i obsługa komend
-api.py           # komunikacja z OpenRouter
-config.py        # konfiguracja API i parametrów modelu
-models.py        # lista dostępnych modeli
-history.py       # zapis i odczyt historii rozmowy
-prompts.py       # instrukcja systemowa dla AI
-logger.py        # konfiguracja logów
-tests/           # testy automatyczne
-data/            # lokalna historia rozmowy
-logs/            # lokalne logi aplikacji
-
-## Struktura projektu
-
-1. Sklonuj repozytorium.
-
-2. Utwórz i aktywuj środowisko wirtualne:
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1
-
-3. Zainstaluj zależności:
-pip install -r requirements.txt
-
-4. Utwórz plik .env na podstawie .env.example:
-.\.venv\Scripts\python.exe main.py
-
-Komendy
-/exit — kończy program,
-/clear — czyści rozmowę, zachowując prompt systemowy,
-/save — ręcznie zapisuje historię,
-/model — pokazuje aktualny model,
-/switch — pozwala wybrać inny model.
-
-Testy:
-.\.venv\Scripts\python.exe -m unittest discover -s tests -v
-
-Bezpieczeństwo
-Nie umieszczaj klucza OpenRouter w kodzie ani w repozytorium. Plik .env powinien pozostać lokalny i jest ignorowany przez Git.
+data/historia.json
