@@ -26,3 +26,6 @@ AI_Client/
 └── tests/
     ├── test_api.py
     └── test_history.py
+│
+└── old/first version/
+    ├── legacy.py

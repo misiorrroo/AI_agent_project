@@ -1,6 +1,9 @@
 import os
 from pathlib import Path
 
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # OpenRouter
 API_KEY = os.getenv("OPENROUTER_API_KEY")
