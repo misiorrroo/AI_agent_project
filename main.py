@@ -1,6 +1,7 @@
 from api import ask_ai  # FUNKCJA WYSYŁAJĄCA ZAPYTANIE DO MODELU
+from config import MODEL
 from history import load_history, save_history
-from models import AVAILABLE_MODELS, DEFAULT_MODEL
+from models import AVAILABLE_MODELS
 from prompts import SYSTEM_PROMPT
 from logger import get_logger
 
@@ -33,6 +34,7 @@ print("2 - DeepSeek (free)")
 print("3 - NVIDIA: Nemotron 3.5 Content Safety (free)")
 print("4 - Google: Gemma 4 31B (free)")
 print("5 - Cohere: North Mini Code (free)")
+
 model_choice = input("Twój wybór [1,2.... Enter = domyślny]: ")
 
 if model_choice == "1":
@@ -51,8 +53,8 @@ elif model_choice == "5":
     selected_model_name = "Cohere: North Mini Code (free)"
     selected_model = AVAILABLE_MODELS[selected_model_name]
 else:
-    selected_model_name = DEFAULT_MODEL
-    selected_model = AVAILABLE_MODELS[selected_model_name]
+    selected_model_name = "model domyślny"
+    selected_model = MODEL
 
 logger.info("Wybrano model: %s", selected_model)
 
@@ -90,13 +92,16 @@ while True:
     # czyszczenie historii
 
     if user_input == "/clear":
-
         messages.clear()
+
+        messages.append({
+            "role": "system",
+            "content": SYSTEM_PROMPT,
+        })
 
         save_history(messages)
 
         print("Historia wyczyszczona.")
-
         continue
 
 
