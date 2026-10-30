@@ -112,7 +112,11 @@ Moduł może odpowiadać za:
 - autoryzację,
 - wysyłanie wiadomości,
 - odbieranie odpowiedzi,
-- obsługę błędów API.
+- obsługę błędów API, w tym błędów autoryzacji, limitów zapytań, problemów
+  z połączeniem, przekroczenia czasu oczekiwania i nieprawidłowych odpowiedzi.
+
+W razie błędu `ask_ai()` wyświetla komunikat i zwraca `None`, dzięki czemu
+nieprawidłowa odpowiedź nie trafia do historii rozmowy.
 
 ---
 

@@ -13,7 +13,7 @@ def choose_model():
     """Wyświetla menu i zwraca identyfikator oraz nazwę wybranego modelu."""
 
     print("\nWybierz model:")
-    print("1 - NVIDIA: Nemotron 3.5 Super VL (free)")
+    print("1 - NVIDIA: Nemotron 3 Ultra (free)")
     print("2 - Cohere: North Mini Code (free)")
     print("3 - NVIDIA: Nemotron 3 Nano Omni (free)")
     print("4 - Google: Gemma 4 31B (free)")
@@ -22,7 +22,7 @@ def choose_model():
     model_choice = input("Twój wybór [1-5, Enter = domyślny]: ")
 
     if model_choice == "1":
-        selected_model_name = "NVIDIA: Nemotron 3.5 Super VL (free)"
+        selected_model_name = "NVIDIA: Nemotron 3 Ultra (free)"
     elif model_choice == "2":
         selected_model_name = "Cohere: North Mini Code (free)"
     elif model_choice == "3":
