@@ -40,7 +40,7 @@ def ask_ai(messages, model):
             API_URL,
             headers=headers,
             json=data,
-            timeout=400,
+            timeout=60,
         )
         response.raise_for_status()
 

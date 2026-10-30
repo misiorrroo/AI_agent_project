@@ -1,5 +1,5 @@
 from api import ask_ai  # FUNKCJA WYSYŁAJĄCA ZAPYTANIE DO MODELU
-from history import load_history, save_history
+from history import clear_history, load_history, save_history
 from models import AVAILABLE_MODELS, DEFAULT_MODEL
 from prompts import SYSTEM_PROMPT
 from logger import get_logger
@@ -13,24 +13,24 @@ def choose_model():
     """Wyświetla menu i zwraca identyfikator oraz nazwę wybranego modelu."""
 
     print("\nWybierz model:")
-    print("1 - GPT-OSS (free)")
-    print("2 - DeepSeek (free)")
-    print("3 - NVIDIA: Nemotron 3.5 Content Safety (free)")
+    print("1 - NVIDIA: Nemotron 3.5 Super VL (free)")
+    print("2 - Cohere: North Mini Code (free)")
+    print("3 - NVIDIA: Nemotron 3 Nano Omni (free)")
     print("4 - Google: Gemma 4 31B (free)")
-    print("5 - Cohere: North Mini Code (free)")
+    print("5 - Dots Studio: Dots3-Note Preview (free)")
 
     model_choice = input("Twój wybór [1-5, Enter = domyślny]: ")
 
     if model_choice == "1":
-        selected_model_name = "gpt-oss (free)"
+        selected_model_name = "NVIDIA: Nemotron 3.5 Super VL (free)"
     elif model_choice == "2":
-        selected_model_name = "deepseek (free)"
+        selected_model_name = "Cohere: North Mini Code (free)"
     elif model_choice == "3":
-        selected_model_name = "NVIDIA: Nemotron 3.5 Content Safety (free)"
+        selected_model_name = "NVIDIA: Nemotron 3 Nano Omni (free)"
     elif model_choice == "4":
         selected_model_name = "Google: Gemma 4 31B (free)"
     elif model_choice == "5":
-        selected_model_name = "Cohere: North Mini Code (free)"
+        selected_model_name = "Dots Studio: Dots3-Note Preview (free)"
     else:
         selected_model_name = DEFAULT_MODEL
 
@@ -95,6 +95,7 @@ while True:
     # czyszczenie historii
 
     if user_input == "/clear":
+        clear_history()
         messages.clear()
 
         messages.append({

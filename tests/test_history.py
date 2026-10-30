@@ -41,6 +41,19 @@ class HistoryTests(unittest.TestCase):
 
         self.assertEqual(history.load_history(), messages)
 
+    def test_load_history_returns_empty_list_for_invalid_json(self):
+        self.history_file.parent.mkdir(parents=True)
+        self.history_file.write_text("nie jest JSON-em", encoding="utf-8")
+
+        self.assertEqual(history.load_history(), [])
+
+    def test_clear_history_saves_empty_list(self):
+        history.save_history([{"role": "user", "content": "test"}])
+
+        history.clear_history()
+
+        self.assertEqual(history.load_history(), [])
+
 
 if __name__ == "__main__":
     unittest.main()

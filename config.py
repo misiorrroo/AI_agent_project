@@ -13,9 +13,9 @@ API_URL = "https://openrouter.ai/api/v1/chat/completions"
 MODEL = get_model(DEFAULT_MODEL)
 
 # Parametry generowania
-TEMPERATURE = 0.3
-TOP_P = 0.9
-MAX_TOKENS = 2000
+TEMPERATURE = 1
+TOP_P = 0.92
+MAX_TOKENS = 2500
 FREQUENCY_PENALTY = 0.1
 PRESENCE_PENALTY = 0.1
 
