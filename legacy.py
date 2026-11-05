@@ -349,7 +349,7 @@ print("=" * 60)
 while True:
 
 
-    user_input = input("\nTy: ")
+    user_input = input("\n------>> ")
 
 
 

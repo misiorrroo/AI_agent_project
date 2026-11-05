@@ -1,9 +1,8 @@
 from api import ask_ai  # FUNKCJA WYSYŁAJĄCA ZAPYTANIE DO MODELU
 from history import clear_history, load_history, save_history
+from logger import get_logger
 from models import AVAILABLE_MODELS, DEFAULT_MODEL
 from prompts import SYSTEM_PROMPT
-from logger import get_logger
-
 
 logger = get_logger(__name__)
 logger.info("Uruchomiono program")

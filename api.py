@@ -3,11 +3,11 @@ import requests
 from config import (
     API_KEY,
     API_URL,
+    FREQUENCY_PENALTY,
+    MAX_TOKENS,
+    PRESENCE_PENALTY,
     TEMPERATURE,
     TOP_P,
-    MAX_TOKENS,
-    FREQUENCY_PENALTY,
-    PRESENCE_PENALTY,
 )
 from logger import get_logger
 
@@ -102,7 +102,7 @@ def ask_ai(messages, model):
         result = response.json()
         content = result["choices"][0]["message"]["content"]
         if not isinstance(content, str):
-            raise ValueError("Pole z treścią odpowiedzi nie jest tekstem.")
+            raise TypeError("Pole z treścią odpowiedzi nie jest tekstem.")
         return content
 
     except requests.HTTPError as error:
