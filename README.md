@@ -3,6 +3,19 @@
 Klient AI napisany w Pythonie, służący do komunikacji z modelami językowymi
 przez API OpenRouter.
 
+## Modele generujące pliki
+
+W głównym wyborze modelu dostępna jest opcja `6 - Inne modele niż generujące tekst`:
+
+- `1` zamienia wpisany tekst na plik dźwiękowy PCM przez
+  `heygen/heygen-voice-1-turbo:free` (głos `nadine`),
+- `2` tworzy obraz PNG przez `recraft/recraft-v4.1-flash-v2:free`,
+- `3` pozwala wybrać katalog zapisu wygenerowanych plików.
+
+Ustawiony katalog jest zapisywany lokalnie w
+`data/ustawienia_modeli_plikow.json`. Domyślnie pliki trafiają do
+`data/wygenerowane_pliki`.
+
 Projekt został zaprojektowany modułowo, tak aby poszczególne elementy
 odpowiadające za konfigurację, komunikację z API, historię rozmowy,
 modele oraz prompty były od siebie oddzielone.

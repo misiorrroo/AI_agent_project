@@ -10,6 +10,8 @@ load_dotenv()
 # OpenRouter
 API_KEY = os.getenv("OPENROUTER_API_KEY")
 API_URL = "https://openrouter.ai/api/v1/chat/completions"
+IMAGE_API_URL = "https://openrouter.ai/api/v1/images"
+SPEECH_API_URL = "https://openrouter.ai/api/v1/audio/speech"
 
 # Model
 MODEL = get_model(DEFAULT_MODEL)
@@ -28,3 +30,7 @@ HISTORY_DB_FILE = DATA_DIR / "historia.db"
 
 # Stara historia jest importowana przy pierwszym uruchomieniu po zmianie na SQLite.
 HISTORY_FILE = DATA_DIR / "historia.json"
+
+# Ustawienia plików generowanych przez modele obrazu i tekstu na głos.
+MEDIA_SETTINGS_FILE = DATA_DIR / "ustawienia_modeli_plikow.json"
+DEFAULT_MEDIA_OUTPUT_DIR = DATA_DIR / "wygenerowane_pliki"

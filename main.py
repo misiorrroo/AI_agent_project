@@ -1,6 +1,7 @@
 from api import ask_ai  # FUNKCJA WYSYŁAJĄCA ZAPYTANIE DO MODELU
 from history import clear_history, load_history, save_history
 from logger import get_logger
+from media import generate_image, generate_speech, get_media_output_dir, set_media_output_dir
 from models import AVAILABLE_MODELS, DEFAULT_MODEL
 from prompts import SYSTEM_PROMPT
 
@@ -17,8 +18,13 @@ def choose_model():
     print("3 - NVIDIA: Nemotron 3 Nano Omni (free)")
     print("4 - Google: Gemma 4 31B (free)")
     print("5 - Dots Studio: Dots3-Note Preview (free)")
+    print("6 - Inne modele niż generujące tekst")
 
-    model_choice = input("Twój wybór [1-5, Enter = domyślny]: ")
+    model_choice = input("Twój wybór [1-6, Enter = domyślny]: ")
+
+    if model_choice == "6":
+        other_models_menu()
+        return choose_model()
 
     if model_choice == "1":
         selected_model_name = "NVIDIA: Nemotron 3 Ultra (free)"
@@ -34,6 +40,41 @@ def choose_model():
         selected_model_name = DEFAULT_MODEL
 
     return AVAILABLE_MODELS[selected_model_name], selected_model_name
+
+
+def other_models_menu():
+    """Menu modeli tworzących pliki oraz ustawienia ich katalogu wyjściowego."""
+    while True:
+        print("\nInne modele niż generujące tekst:")
+        print("1 - Modele tekst na głos")
+        print("2 - Modele generujące obrazy")
+        print("3 - Ustawienia modeli generujących pliki")
+        print("0 - Powrót")
+        choice = input("Twój wybór [0-3]: ").strip()
+
+        if choice == "0":
+            return
+        if choice == "1":
+            text = input("Tekst do zamiany na głos: ").strip()
+            if text:
+                output_file = generate_speech(text)
+                if output_file:
+                    print(f"Plik dźwiękowy zapisano w: {output_file}")
+        elif choice == "2":
+            prompt = input("Opis obrazu: ").strip()
+            if prompt:
+                output_file = generate_image(prompt)
+                if output_file:
+                    print(f"Obraz zapisano w: {output_file}")
+        elif choice == "3":
+            current_dir = get_media_output_dir()
+            print(f"Aktualny katalog: {current_dir}")
+            directory = input("Nowy katalog (Enter = bez zmian): ").strip()
+            if directory:
+                saved_dir = set_media_output_dir(directory)
+                print(f"Katalog zapisu ustawiono na: {saved_dir}")
+        else:
+            print("Nieprawidłowy wybór.")
 
 
 
