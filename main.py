@@ -1,7 +1,12 @@
 from api import ask_ai  # FUNKCJA WYSYŁAJĄCA ZAPYTANIE DO MODELU
 from history import clear_history, load_history, save_history
 from logger import get_logger
-from media import generate_image, generate_speech, get_media_output_dir, set_media_output_dir
+from media import (
+    generate_image,
+    generate_speech,
+    get_media_output_dir,
+    set_media_output_dir,
+)
 from models import AVAILABLE_MODELS, DEFAULT_MODEL
 from prompts import SYSTEM_PROMPT
 
