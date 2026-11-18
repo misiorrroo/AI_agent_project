@@ -1,0 +1,29 @@
+name: Test and build
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pobierz kod
+        uses: actions/checkout@v4
+
+      - name: Ustaw Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Zainstaluj zależności
+        run: pip install -r requirements.txt
+
+      - name: Uruchom testy
+        run: python -m unittest discover -s tests
+
+      - name: Zbuduj obraz Docker
+        run: docker build -t ai-client:test .

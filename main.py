@@ -10,10 +10,6 @@ from media import (
 from models import AVAILABLE_MODELS, DEFAULT_MODEL
 from prompts import SYSTEM_PROMPT
 
-logger = get_logger(__name__)
-logger.info("Uruchomiono program")
-
-
 def choose_model():
     """Wyświetla menu i zwraca identyfikator oraz nazwę wybranego modelu."""
 
@@ -81,137 +77,89 @@ def other_models_menu():
         else:
             print("Nieprawidłowy wybór.")
 
+def main():
+    """Uruchamia interaktywny interfejs konsolowy aplikacji."""
+    logger = get_logger(__name__)
+    logger.info("Uruchomiono program")
 
-
-messages = load_history()
-if not messages or messages[0]["role"] != "system":
-    messages.insert(0, {
-        "role": "system",
-        "content": SYSTEM_PROMPT,
-    })
-
-
-# ============================================================
-# PROGRAM GŁÓWNY
-# ============================================================
-
-
-print("=" * 60)
-
-print("OpenRouter Python Client")
-
-selected_model, selected_model_name = choose_model()
-
-logger.info("Wybrano model: %s", selected_model)
-
-print("Model:", selected_model)
-
-print("Komendy:")
-
-print("/exit   - zakończenie")
-
-print("/clear  - wyczyszczenie historii")
-
-print("/save   - zapis historii")
-
-print("/model  - pokazuje model")
-
-print("/switch - zmienia model")
-
-print("=" * 60)
-
-
-
-while True:
-
-
-    user_input = input("\nTy: ")
-
-
-
-    # zakończenie programu
-
-    if user_input == "/exit":
-
-        break
-
-
-
-    # czyszczenie historii
-
-    if user_input == "/clear":
-        clear_history()
-        messages.clear()
-
-        messages.append({
+    messages = load_history()
+    if not messages or messages[0]["role"] != "system":
+        messages.insert(0, {
             "role": "system",
             "content": SYSTEM_PROMPT,
         })
 
-        save_history(messages)
+    print("=" * 60)
+    print("OpenRouter Python Client")
 
-        print("Historia wyczyszczona.")
-        continue
+    selected_model, selected_model_name = choose_model()
+    logger.info("Wybrano model: %s", selected_model)
 
+    print("Model:", selected_model)
+    print("Komendy:")
+    print("/exit   - zakończenie")
+    print("/clear  - wyczyszczenie historii")
+    print("/save   - zapis historii")
+    print("/model  - pokazuje model")
+    print("/switch - zmienia model")
+    print("=" * 60)
 
+    while True:
+        try:
+            user_input = input("\nTy: ")
+        except EOFError:
+            print("\nZamknięto wejście programu.")
+            break
 
-    # ręczny zapis
+        if user_input == "/exit":
+            break
 
-    if user_input == "/save":
+        if user_input == "/clear":
+            clear_history()
+            messages.clear()
+            messages.append({
+                "role": "system",
+                "content": SYSTEM_PROMPT,
+            })
+            save_history(messages)
+            print("Historia wyczyszczona.")
+            continue
 
-        save_history(messages)
+        if user_input == "/save":
+            save_history(messages)
+            print("Historia zapisana.")
+            continue
 
-        print("Historia zapisana.")
+        if user_input == "/model":
+            print("Aktualny model:", selected_model_name)
+            continue
 
-        continue
+        if user_input == "/switch":
+            selected_model, selected_model_name = choose_model()
+            logger.info("Zmieniono model: %s", selected_model)
+            print("Wybrany model:", selected_model_name)
+            continue
 
-
-
-    # pokazanie modelu
-
-    if user_input == "/model":
-
-        print("Aktualny model:", selected_model_name)
-
-        continue
-
-
-    # zmiana modelu w trakcie działania programu
-
-    if user_input == "/switch":
-
-        selected_model, selected_model_name = choose_model()
-        logger.info("Zmieniono model: %s", selected_model)
-
-        print("Wybrany model:", selected_model_name)
-
-        continue
-
-
-
-    # normalne pytanie
-
-    messages.append({
-        "role": "user",
-        "content": user_input,
-    })
-
-    answer = ask_ai(messages, selected_model)
-
-    if answer:
         messages.append({
-            "role": "assistant",
-            "content": answer,
+            "role": "user",
+            "content": user_input,
         })
+        answer = ask_ai(messages, selected_model)
 
-        save_history(messages)
+        if answer:
+            messages.append({
+                "role": "assistant",
+                "content": answer,
+            })
+            save_history(messages)
+            print("\nAI:")
+            print("-" * 60)
+            print(answer)
+            print("-" * 60)
 
-        print("\nAI:")
-        print("-" * 60)
-        print(answer)
-        print("-" * 60)
+    logger.info("Zakończono program")
+    print("Koniec programu.")
 
 
-logger.info("Zakończono program")
-
-print("Koniec programu.")
+if __name__ == "__main__":
+    main()
