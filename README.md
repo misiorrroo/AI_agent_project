@@ -23,7 +23,7 @@ Konsolowy klient Python do korzystania z modeli dostępnych przez OpenRouter. Pr
 ## Instalacja
 
 ```powershell
-git clone <adres-repozytorium>
+git clone https://github.com/misiorrroo/AI_agent_project.git
 cd AI_agent_project
 python -m venv .venv
 .venv\Scripts\Activate.ps1
