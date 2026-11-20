@@ -10,6 +10,7 @@ from media import (
 from models import AVAILABLE_MODELS, DEFAULT_MODEL
 from prompts import SYSTEM_PROMPT
 
+
 def choose_model():
     """Wyświetla menu i zwraca identyfikator oraz nazwę wybranego modelu."""
 
